@@ -1,0 +1,98 @@
+.login_form {
+    margin: 30px 25px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+    .input_group {
+      position: relative;
+      margin-bottom: 14px;
+    }
+  
+    .input_label {
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 18px;
+      display: flex;
+      align-items: center;
+      letter-spacing: -0.5px;
+      color: #1c1c28;
+    }
+  
+  
+    .form_input {
+      width: 100%;
+      padding-left: 42px;
+      display: grid;
+      font-style: normal;
+      font-size: 16px;
+      position: static;
+      height: 44px;
+      left: 0px;
+      right: 0px;
+      background: #f2f2f5;
+      border-radius: 12px;
+      flex: none;
+      order: 1;
+      align-self: stretch;
+      flex-grow: 0;
+      margin: 3px 0px;
+      letter-spacing: -0.5px;
+      font-weight: 500;
+      color: #1c1c28;
+      border: 2.5px solid transparent;
+    
+    }
+  
+    .login_button_div {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .btnDisable {
+      padding: 12px 16px;
+      box-sizing: border-box;
+      border-radius: 12px;
+      flex: none;
+      order: 0;
+      flex-grow: 0;
+      margin: 8px 0px;
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 15px;
+      letter-spacing: -0.5px;
+      width: auto;
+      background: #f2f2f5;
+      border: 1.5px solid #f2f2f5;
+      color: #8f90a6;
+    }
+  
+  
+    .login_button {
+      padding: 12px 16px;
+      background: #3e7bfa;
+      border: 1.5px solid #3e7bfa;
+      box-sizing: border-box;
+      border-radius: 12px;
+      flex: none;
+      order: 0;
+      flex-grow: 0;
+      margin: 8px 0px;
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 15px !important;
+      letter-spacing: -0.5px;
+      width: auto;
+      color: #ffffff;
+    }
+  

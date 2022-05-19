@@ -19,7 +19,7 @@ export const Auth =
       });
 
       if (res.data.response_data.role == "admin") {
-        navigate("/admin");
+        navigate("/showproduct");
       } else {
         navigate("/");
         toast.success(res.data.message);

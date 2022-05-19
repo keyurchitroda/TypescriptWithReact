@@ -19,5 +19,24 @@ table {
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    margin-top: 150px;
+    margin-top: 10px;
   }
+
+  .button{
+    display: flex;
+    justify-content: flex-end;
+    margin-left: 700px;
+
+   }
+
+   .add{
+    background-color: green; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    /* display: inline-block; */
+    font-size: 16px;
+    border-radius:10px
+}

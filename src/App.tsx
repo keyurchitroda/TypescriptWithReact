@@ -5,6 +5,7 @@ import Home from "./components/Home/Home";
 import Signin from "./components/Auth/Signin/Signin";
 import { ToastContainer, toast } from "react-toastify";
 import ShowProduct from "./components/Admin/ShowAllProducts/ShowProduct";
+import Product from "./components/Admin/AddProduct/Product";
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
           <Route path="/signin" element={<Signin />} />
           <Route path="/" element={<Home />} />
           <Route path="/showproduct" element={<ShowProduct />} />
+          <Route path="/addproduct" element={<Product />} />
+
         </Routes>
       </BrowserRouter>
     </div>

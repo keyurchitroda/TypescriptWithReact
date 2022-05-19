@@ -3,8 +3,10 @@ import "./ShowProduct.css";
 import { useDispatch, useSelector } from "react-redux";
 import { ShowAllProduct } from "../../../redux/action/product";
 import { Dispatch } from "redux";
+import { useNavigate } from "react-router-dom";
 const ShowProduct = () => {
   const dispatch: Dispatch<any> = useDispatch();
+  const navigate = useNavigate();
 
   const product = useSelector((state: any) => state.product.products);
   console.log(product);
@@ -12,8 +14,18 @@ const ShowProduct = () => {
     dispatch(ShowAllProduct());
   }, []);
 
+  const onClick = () => {
+    navigate("/addproduct");
+  };
+
   return (
     <div className="conatainer">
+      <div className="button">
+        <button onClick={onClick} className="add">
+          Add Product
+        </button>
+      </div>
+
       <h2>Product</h2>
 
       <table>
