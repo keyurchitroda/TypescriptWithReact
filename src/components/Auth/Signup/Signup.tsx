@@ -6,6 +6,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import { checkSignup } from "../../API/auth";
 
 interface Formdata {
   first_name: string;
@@ -40,10 +41,13 @@ const Signup = () => {
         email: values.email,
         password: values.password,
       };
-      let res = await axios.post(
-        "http://localhost:3002/v1/api/auth/signup",
-        data
-      );
+      // let res = await axios.post(
+      //   "http://localhost:3002/v1/api/auth/signup",
+      //   data
+      // );
+      let res:any = await checkSignup(data);
+      console.log("///res", res);
+
       if (res.status == 200) {
         console.log("welcome");
         navigate("/signin");

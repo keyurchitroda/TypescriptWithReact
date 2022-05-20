@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import "./Product.css";
+import { checkAddProduct } from "../../API/product";
 
 interface Formdata {
   category_id: number;
@@ -48,18 +49,12 @@ const Product = () => {
         price: values.price,
         image: "abc.png",
       };
-      let header: any = {
-        x_auth_token: localStorage.getItem("token"),
-      };
-      let res = await axios.post(
-        "http://localhost:3002/v1/api/product/add",
-        data,
-        { headers: header }
-      );
+
+      let res: any = await checkAddProduct(data);
       if (res.status == 200) {
         console.log("welcome");
         navigate("/showproduct");
-        toast.success(res.data.message);
+        toast.success(res.message);
       }
     } catch (err: any) {
       if (err.response) {
