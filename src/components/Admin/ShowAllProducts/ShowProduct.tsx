@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./ShowProduct.css";
 import { useDispatch, useSelector } from "react-redux";
 import { ShowAllProduct } from "../../../redux/action/product";
 import { Dispatch } from "redux";
 import { useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
+
 const ShowProduct = () => {
   const dispatch: Dispatch<any> = useDispatch();
   const navigate = useNavigate();
@@ -13,6 +15,25 @@ const ShowProduct = () => {
   useEffect(() => {
     dispatch(ShowAllProduct());
   }, []);
+
+  const [isLoggedIn, setisLoggedIn] = useState<any | null>(null);
+  const accessToken: any = localStorage.getItem("token");
+  console.log(accessToken);
+  const decodedToken: any = jwt_decode(accessToken);
+
+  useEffect(() => {
+    if (accessToken == null) {
+      navigate("/signin");
+      setisLoggedIn(false);
+    } else {
+      setisLoggedIn(true);
+      if (decodedToken.role == "admin") {
+        navigate("/showproduct");
+      } else {
+        navigate("/");
+      }
+    }
+  }, []); 
 
   const onClick = () => {
     navigate("/addproduct");

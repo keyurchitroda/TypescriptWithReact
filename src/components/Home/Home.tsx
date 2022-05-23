@@ -1,16 +1,44 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ShowAllProduct } from "../../redux/action/product";
 import { Dispatch } from "redux";
 import "./Home.css";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 const Home = () => {
+  const navigate = useNavigate();
   const dispatch: Dispatch<any> = useDispatch();
 
   const product = useSelector((state: any) => state.product.products);
   console.log(product);
   useEffect(() => {
     dispatch(ShowAllProduct());
+  }, []);
+
+  const [isLoggedIn, setisLoggedIn] = useState<any | null>(null);
+  const accessToken: any = localStorage.getItem("token");
+  console.log(accessToken);
+  const decodedToken: any = jwt_decode(accessToken);
+
+  useEffect(() => {
+    if (accessToken == null) {
+      navigate("/signin");
+      setisLoggedIn(false);
+    } else {
+      setisLoggedIn(true);
+      if (decodedToken.role == "admin") {
+        navigate("/showproduct");
+      } else {
+        navigate("/");
+      }
+    }
   }, []);
 
   return (

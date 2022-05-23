@@ -2,7 +2,6 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import "./Signin.global.css";
 import * as Yup from "yup";
-import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
@@ -43,13 +42,13 @@ const Signin = () => {
   };
 
   return (
-    <div>
+    <div className="main">
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        {(formik) => (
+        {(formik: any) => (
           <Form className="login_form">
             <div className="input_group">
               <label htmlFor="email" className="input_label">
