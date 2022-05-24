@@ -1,0 +1,12 @@
+.button{
+    width: 150px;
+    height: 50px;
+    /* display: flex; */
+    /* justify-content: center; */
+    margin: auto;
+}
+
+.div2{
+    margin-top: 20px;
+    background-color: red;
+}

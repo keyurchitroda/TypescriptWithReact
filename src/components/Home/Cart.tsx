@@ -42,6 +42,7 @@ const Cart = () => {
       product: cart,
       total_price: total,
     };
+
     let res: any = await checkNewOrder(data);
     console.log("res", res);
     if (res.status === 200) {
@@ -49,7 +50,7 @@ const Cart = () => {
         type: REMOVE_TO_CART,
       });
       localStorage.removeItem("cartItems");
-      navigate("/");
+      navigate("/myorder");
       toast.success(res.message);
     }
   };

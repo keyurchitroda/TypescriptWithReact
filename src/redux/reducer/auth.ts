@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS } from "../type";
+import { LOGIN_SUCCESS, SHOW_ALL_USER } from "../type";
 
 const initialState = {
   isAuthenticated: false,
@@ -14,6 +14,12 @@ const reducer = (state = initialState, action: any) => {
       return {
         ...state,
         isAuthenticated: true,
+        users: payload,
+      };
+
+    case SHOW_ALL_USER:
+      return {
+        ...state,
         users: payload,
       };
     default:

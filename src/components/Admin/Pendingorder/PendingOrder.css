@@ -1,0 +1,10 @@
+.btn{
+    width: 100px;
+    height: 46px;
+}
+
+.mainbtn{
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}

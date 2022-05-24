@@ -1,5 +1,5 @@
-import { LOGIN_SUCCESS } from "../type";
-import { checkSignin } from "../../components/API/auth";
+import { LOGIN_SUCCESS, SHOW_ALL_USER } from "../type";
+import { checkSignin, checkAllUser } from "../../components/API/auth";
 
 export const Auth =
   (data: any, navigate: any, toast: any) => async (dispatch: any) => {
@@ -27,3 +27,18 @@ export const Auth =
       toast.error(err.response.data.message);
     }
   };
+
+export const ShowAllUser = () => async (dispatch: any) => {
+  try {
+    let res: any = await checkAllUser();
+    console.log("res", res);
+
+    dispatch({
+      type: SHOW_ALL_USER,
+      payload: res.response_data,
+    });
+  } catch (err: any) {
+    console.log("err-Login", err.response.data.message);
+    // toast.error(err.response.data.message);
+  }
+};

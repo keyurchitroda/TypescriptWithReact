@@ -5,13 +5,16 @@ import { ShowAllProduct } from "../../../redux/action/product";
 import { Dispatch } from "redux";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import { ShowCategory } from "../../../redux/action/category";
 
 const ShowProduct = () => {
   const dispatch: Dispatch<any> = useDispatch();
   const navigate = useNavigate();
 
   const product = useSelector((state: any) => state.product.products);
-  console.log(product);
+  const category = useSelector((state: any) => state.AllCategory.category.rows);
+
+  console.log("category", category);
   useEffect(() => {
     dispatch(ShowAllProduct());
   }, []);
@@ -33,7 +36,11 @@ const ShowProduct = () => {
         navigate("/");
       }
     }
-  }, []); 
+  }, []);
+
+  useEffect(() => {
+    dispatch(ShowCategory());
+  }, []);
 
   const onClick = () => {
     navigate("/addproduct");
@@ -41,7 +48,7 @@ const ShowProduct = () => {
 
   return (
     <div className="conatainer">
-      <div className="button">
+      <div className="buttonprod">
         <button onClick={onClick} className="add">
           Add Product
         </button>

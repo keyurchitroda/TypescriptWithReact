@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -7,6 +7,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import "./Product.css";
 import { checkAddProduct } from "../../API/product";
+import { ShowCategory } from "../../../redux/action/category";
+import { useSelector, useDispatch } from "react-redux";
+import { Dispatch } from "redux";
 
 interface Formdata {
   category_id: number;
@@ -27,7 +30,14 @@ const validationSchema = Yup.object({
 });
 
 const Product = () => {
+  const dispatch: Dispatch<any> = useDispatch();
   const navigate = useNavigate();
+  const category = useSelector((state: any) => state.AllCategory.category.rows);
+
+  console.log("category", category);
+  useEffect(() => {
+    dispatch(ShowCategory());
+  }, []);
 
   const initialValues: Formdata = {
     category_id: 0,
@@ -76,12 +86,21 @@ const Product = () => {
               <label htmlFor="category_id" className="input_label">
                 Select Category
               </label>
-              <Field
+              {/* <Field
                 name="category_id"
                 type="text"
                 placeholder="Enter Category Name"
                 className="form_input"
-              />
+              /> */}
+              <select name="category_id" className="form_input_select">
+                <option value="" label="Select a category">
+                  Select a color{" "}
+                </option>
+                {category &&
+                  category.map((cat: any) => {
+                    return <option value={cat.id} label={cat.category_name} />;
+                  })}
+              </select>
             </div>
 
             <div className="input_group">

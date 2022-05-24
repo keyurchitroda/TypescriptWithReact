@@ -3,13 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ShowAllProduct } from "../../redux/action/product";
 import { Dispatch } from "redux";
 import "./Home.css";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import Cart from "./Cart";
 import { AddToCart } from "../../redux/action/cart";

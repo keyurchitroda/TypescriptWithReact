@@ -14,6 +14,10 @@ import ShowProduct from "./components/Admin/ShowAllProducts/ShowProduct";
 import Product from "./components/Admin/AddProduct/Product";
 import NavbarApp from "./components/NavbarApp";
 import Cart from "./components/Home/Cart";
+import Myorder from "./components/Myorder/Myorder";
+import Dashboard from "./components/Admin/Dashboard/Dashboard";
+import PendingOrder from "./components/Admin/Pendingorder/PendingOrder";
+import Users from "./components/Admin/Users/Users";
 
 function App() {
   return (
@@ -28,6 +32,10 @@ function App() {
           <Route path="/showproduct" element={<ShowProduct />} />
           <Route path="/addproduct" element={<Product />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/myorder" element={<Myorder />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/pending" element={<PendingOrder />} />
+          <Route path="/showuser" element={<Users />} />
         </Routes>
       </BrowserRouter>
     </div>
