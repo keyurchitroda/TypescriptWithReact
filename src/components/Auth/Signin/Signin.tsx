@@ -68,7 +68,7 @@ const Signin = () => {
               </label>
               <Field
                 name="password"
-                type="text"
+                type="password"
                 placeholder="Enter Password"
                 className="form_input"
               />

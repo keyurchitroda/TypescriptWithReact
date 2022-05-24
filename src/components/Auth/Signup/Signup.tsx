@@ -45,7 +45,7 @@ const Signup = () => {
       //   "http://localhost:3002/v1/api/auth/signup",
       //   data
       // );
-      let res:any = await checkSignup(data);
+      let res: any = await checkSignup(data);
       console.log("///res", res);
 
       if (res.status == 200) {
@@ -111,7 +111,7 @@ const Signup = () => {
               </label>
               <Field
                 name="password"
-                type="text"
+                type="password"
                 placeholder="Enter Password"
                 className="form_input"
               />

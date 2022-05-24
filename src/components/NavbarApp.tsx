@@ -9,40 +9,41 @@ const NavbarApp = () => {
   const [isAdmin, setIsAdmin] = useState<any | null>(null);
 
   const accessToken: any = localStorage.getItem("token");
-  console.log(accessToken);
-  const decodedToken: any = jwt_decode(accessToken);
+  const userdata: any = JSON.parse(localStorage.getItem("user") as any);
+  console.log("user", userdata);
+
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (accessToken == null) {
-      navigate("/signin");
-      setisLoggedIn(false);
-    } else {
-      setisLoggedIn(true);
-      if (decodedToken.role == "admin") {
-        setIsAdmin(true);
-      } else {
-        setIsAdmin(false);
-      }
-    }
-  }, []);
+  const Logout = () => {
+    localStorage.clear();
+    navigate("/signin");
+  };
 
   return (
     <>
       <Navbar bg="dark" variant="dark">
         <Container>
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
-          {!isAdmin ? (
+          {accessToken != null && userdata.role == "user" ? (
             <Nav className="me-auto">
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/myorder">Myorder</Nav.Link>
-              <Nav.Link href="/signin">Logout</Nav.Link>
+              <Nav.Link href="/signin" onClick={Logout}>
+                Logout
+              </Nav.Link>
+            </Nav>
+          ) : accessToken != null && userdata.role == "admin" ? (
+            <Nav className="me-auto">
+              <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+              <Nav.Link href="/showproduct">Showallproduct</Nav.Link>
+              <Nav.Link href="/signin" onClick={Logout}>
+                Logout
+              </Nav.Link>
             </Nav>
           ) : (
             <Nav className="me-auto">
-              <Nav.Link href="/dashboard">Dashboard</Nav.Link>
-              <Nav.Link href="/showproduct">ShowAllProduct</Nav.Link>
-              <Nav.Link href="/signin">Logout</Nav.Link>
+              <Nav.Link href="/signup">Signup</Nav.Link>
+              <Nav.Link href="/signin">Signin</Nav.Link>
             </Nav>
           )}
         </Container>

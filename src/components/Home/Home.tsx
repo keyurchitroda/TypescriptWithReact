@@ -23,21 +23,22 @@ const Home = () => {
   const [isLoggedIn, setisLoggedIn] = useState<any | null>(null);
   const accessToken: any = localStorage.getItem("token");
   console.log(accessToken);
-  const decodedToken: any = jwt_decode(accessToken);
+  // const decodedToken: any = jwt_decode(accessToken);
 
-  useEffect(() => {
-    if (accessToken == null) {
-      navigate("/signin");
-      setisLoggedIn(false);
-    } else {
-      setisLoggedIn(true);
-      if (decodedToken.role == "admin") {
-        navigate("/showproduct");
-      } else {
-        navigate("/");
-      }
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (accessToken == null) {
+  //     console.log("///////////////////");
+  //     navigate("/signin");
+  //     setisLoggedIn(false);
+  //   } else {
+  //     setisLoggedIn(true);
+  //     // if (decodedToken?.role == "admin") {
+  //     //   navigate("/showproduct");
+  //     // } else {
+  //     //   navigate("/");
+  //     // }
+  //   }
+  // }, []);
 
   const addTocart = (productData: any): any => {
     console.log(productData);

@@ -52,7 +52,7 @@ const Product = () => {
     try {
       console.log(values);
       let data = {
-        category_id: values.category_id,
+        category_id: 1,
         product_name: values.product_name,
         product_description: values.product_description,
         available_qty: values.available_qty,
