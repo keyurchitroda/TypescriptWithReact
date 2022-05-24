@@ -6,7 +6,8 @@ const initialState = {
 
 const reducer = (state = initialState, action: any) => {
   const { type, payload } = action;
-
+  console.log(payload,"payload");
+  
   switch (type) {
     case SHOW_ALL_PRODUCT_SUCCESS:
       localStorage.setItem("allproducts", JSON.stringify(payload));

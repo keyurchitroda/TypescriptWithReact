@@ -13,19 +13,21 @@ import { ToastContainer, toast } from "react-toastify";
 import ShowProduct from "./components/Admin/ShowAllProducts/ShowProduct";
 import Product from "./components/Admin/AddProduct/Product";
 import NavbarApp from "./components/NavbarApp";
+import Cart from "./components/Home/Cart";
 
 function App() {
   return (
     <div className="">
       <ToastContainer />
       <BrowserRouter>
-        {/* <NavbarApp /> */}
+        <NavbarApp />
         <Routes>
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/" element={<Home />} />
           <Route path="/showproduct" element={<ShowProduct />} />
           <Route path="/addproduct" element={<Product />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </BrowserRouter>
     </div>

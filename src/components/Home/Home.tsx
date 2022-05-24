@@ -11,13 +11,17 @@ import {
   useNavigate,
 } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import Cart from "./Cart";
+import { AddToCart } from "../../redux/action/cart";
 
 const Home = () => {
   const navigate = useNavigate();
   const dispatch: Dispatch<any> = useDispatch();
 
   const product = useSelector((state: any) => state.product.products);
-  console.log(product);
+  const cart = useSelector((state: any) => state.cartReducer.cartItems);
+  console.log("cart", cart);
+
   useEffect(() => {
     dispatch(ShowAllProduct());
   }, []);
@@ -41,35 +45,85 @@ const Home = () => {
     }
   }, []);
 
+  const addTocart = (productData: any): any => {
+    console.log(productData);
+    dispatch(AddToCart(productData));
+  };
+
+  const addtocart = () => {
+    navigate("/cart");
+  };
+
   return (
     <>
-      <div className="container">
-        <div className="card">
-          <ul className="product-list">
-            {product.map((prod: any) => (
-              <li>
-                <div className="product">
-                  <div className="product-image">
-                    <img src="https://images.unsplash.com/photo-1652891179429-cfcabfa6e16c?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500" />
-                  </div>
-                  <div className="product-imformation">
-                    <h4>{prod.product_name}</h4>
-                    <div className="specification">
-                      <span> {prod.product_description}</span>
-                      <small className="line"></small>
-                      <span>available-qty : {prod.available_qty}</span>
-                    </div>
-                    <span>Rs. {prod.price}</span>
-                  </div>
-                </div>
-                <div className="button">
-                  <button className="addToCart">Add To Cart</button>
-                </div>
-              </li>
-            ))}
-          </ul>
+      <section className="section-products">
+        <div
+          className="cart"
+          style={{
+            color: "red",
+            display: "flex",
+            justifyContent: "flex-end",
+            position: "absolute",
+            right: "38px",
+            top: "32px",
+          }}
+          onClick={() => addtocart()}
+        >
+          <i className="fas fa-shopping-cart fa-2xl">
+            <p className="len">{cart?.length}</p>
+          </i>
         </div>
-      </div>
+        <div className="container">
+          <div className="row justify-content-center text-center">
+            <div className="col-md-8 col-lg-6">
+              <div className="header">
+                <h3>Featured Product</h3>
+                <h2>Popular Products</h2>
+              </div>
+            </div>
+          </div>
+          <div className="row mystyle">
+            {product.map((prod: any) => (
+              <div className="col-md-6 col-lg-4 col-xl-3">
+                <div id="product-1" className="single-product">
+                  <div className="part-1">
+                    <ul>
+                      <li>
+                        <a href="#" onClick={() => addTocart(prod)}>
+                          <i className="fas fa-shopping-cart"></i>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <i className="fas fa-heart"></i>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <i className="fas fa-plus"></i>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <i className="fas fa-expand"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="part-2">
+                    <h3 className="product-title">{prod.product_name}</h3>
+                    {/* <h4 className="product-old-price">Rs. 16000</h4> */}
+                    <p className="product_description">
+                      {prod.product_description}
+                    </p>
+                    <h4 className="product-price">Rs. {prod.price}</h4>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
 };
