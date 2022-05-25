@@ -82,6 +82,7 @@ const Home = () => {
               <div className="col-md-6 col-lg-4 col-xl-3">
                 <div id="product-1" className="single-product">
                   <div className="part-1">
+                    <img className="part-1" src={prod.image} />
                     <ul>
                       <li>
                         <a href="#" onClick={() => addTocart(prod)}>

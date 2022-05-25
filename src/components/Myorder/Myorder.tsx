@@ -46,7 +46,7 @@ const Myorder = () => {
                               <>
                                 <tr>
                                   <img
-                                    src="https://images.unsplash.com/photo-1652891179429-cfcabfa6e16c?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500"
+                                    src={prod.image}
                                     width="100px"
                                     height="100px"
                                   />

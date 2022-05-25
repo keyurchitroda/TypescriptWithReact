@@ -69,10 +69,7 @@ const Cart = () => {
           cart.map((cartItem: any, index: any) => (
             <div className="Cart-Items">
               <div className="image-box">
-                <img
-                  src="https://i.ibb.co/cLnZjnS/2.jpg"
-                  style={{ height: "120px" }}
-                />
+                <img src={cartItem.image} style={{ height: "120px" }} />
               </div>
               <div className="about">
                 <h1 className="title">{cartItem.product_name}</h1>

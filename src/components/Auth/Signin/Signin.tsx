@@ -14,12 +14,16 @@ interface Formdata {
   password: string;
 }
 
+interface Props {
+  setIsAuth: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 const validationSchema = Yup.object({
   email: Yup.string().email("Invalid email format").required("Required"),
   password: Yup.string().required("Required"),
 });
 
-const Signin = () => {
+const Signin: React.FC<Props> = ({ setIsAuth }) => {
   const dispatch: Dispatch<any> = useDispatch();
   const navigate = useNavigate();
 
@@ -35,7 +39,7 @@ const Signin = () => {
         email: values.email,
         password: values.password,
       };
-      await dispatch(Auth(data, navigate, toast));
+      await dispatch(Auth(data, navigate, toast, setIsAuth));
     } catch (err: any) {
       toast.error("Something went wrong");
     }
@@ -84,7 +88,7 @@ const Signin = () => {
                 disabled={!formik.dirty || !formik.isValid}
                 type="submit"
               >
-                Sign Up
+                Sign In
               </button>
             </div>
           </Form>

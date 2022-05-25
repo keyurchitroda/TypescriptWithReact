@@ -2,7 +2,8 @@ import { LOGIN_SUCCESS, SHOW_ALL_USER } from "../type";
 import { checkSignin, checkAllUser } from "../../components/API/auth";
 
 export const Auth =
-  (data: any, navigate: any, toast: any) => async (dispatch: any) => {
+  (data: any, navigate: any, toast: any, setIsAuth: any) =>
+  async (dispatch: any) => {
     try {
       console.log("data", data);
 
@@ -16,9 +17,11 @@ export const Auth =
       });
 
       if (res.response_data.role == "admin") {
+        setIsAuth(true);
         console.log("admin");
         navigate("/showproduct");
       } else {
+        setIsAuth(true);
         navigate("/");
         toast.success(res.message);
       }

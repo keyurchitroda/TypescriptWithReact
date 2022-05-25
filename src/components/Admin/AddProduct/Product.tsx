@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
@@ -30,6 +29,9 @@ const validationSchema = Yup.object({
 });
 
 const Product = () => {
+  const [image, setImage] = useState("");
+  const [url, setUrl] = useState("");
+
   const dispatch: Dispatch<any> = useDispatch();
   const navigate = useNavigate();
   const category = useSelector((state: any) => state.AllCategory.category.rows);
@@ -48,28 +50,53 @@ const Product = () => {
     image: "",
   };
 
-  const onSubmit = async (values: any, onSubmitProps: any) => {
-    try {
-      console.log(values);
-      let data = {
-        category_id: 1,
-        product_name: values.product_name,
-        product_description: values.product_description,
-        available_qty: values.available_qty,
-        price: values.price,
-        image: "abc.png",
-      };
+  const uploadImage = () => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "myapp_image");
+    data.append("cloud_name", "keyur");
+    console.log(data);
+    fetch("https://api.cloudinary.com/v1_1/keyur/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        console.log("data", data);
 
-      let res: any = await checkAddProduct(data);
-      if (res.status == 200) {
-        console.log("welcome");
-        navigate("/showproduct");
-        toast.success(res.message);
+        setUrl(data.url);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  let submitAction: string | undefined = undefined;
+
+  const onSubmit = async (values: any, onSubmitProps: any) => {
+    if (submitAction != "secondary") {
+      try {
+        console.log(values);
+        let data = {
+          category_id: 1,
+          product_name: values.product_name,
+          product_description: values.product_description,
+          available_qty: values.available_qty,
+          price: values.price,
+          image: url,
+        };
+
+        let res: any = await checkAddProduct(data);
+        if (res.status == 200) {
+          console.log("welcome");
+          navigate("/showproduct");
+          toast.success(res.message);
+        }
+      } catch (err: any) {
+        if (err.response) {
+          toast.error(err.response.data.message);
+        }
       }
-    } catch (err: any) {
-      if (err.response) {
-        toast.error(err.response.data.message);
-      }
+    } else {
+      uploadImage();
     }
   };
 
@@ -117,7 +144,7 @@ const Product = () => {
 
             <div className="input_group">
               <label htmlFor="product_description" className="input_label">
-                Email
+                Product Description
               </label>
               <Field
                 name="product_description"
@@ -151,6 +178,26 @@ const Product = () => {
               />
             </div>
 
+            <div className="input_group_image">
+              <input
+                type="file"
+                onChange={(e: any) => setImage(e.target.files[0])}
+                className="form_input_image"
+              ></input>
+            </div>
+            <button
+              onClick={() => {
+                submitAction = "secondary";
+              }}
+              disabled={!formik.dirty || !formik.isValid}
+            >
+              Upload
+            </button>
+            <div className="showimg">
+              {/* <h1>Uploaded image will be displayed here</h1> */}
+              <img src={url} width="200px" height="200px" alt="" />
+            </div>
+
             <div className="login_button_div">
               <button
                 className={`loginBtn ${
@@ -160,6 +207,9 @@ const Product = () => {
                 }`}
                 disabled={!formik.dirty || !formik.isValid}
                 type="submit"
+                onClick={() => {
+                  submitAction = "primary";
+                }}
               >
                 Submit
               </button>

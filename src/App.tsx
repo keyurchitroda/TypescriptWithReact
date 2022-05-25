@@ -18,8 +18,12 @@ import Myorder from "./components/Myorder/Myorder";
 import Dashboard from "./components/Admin/Dashboard/Dashboard";
 import PendingOrder from "./components/Admin/Pendingorder/PendingOrder";
 import Users from "./components/Admin/Users/Users";
+import { useState } from "react";
+import ProtectedRoute from "./components/ProtectedRoute";
 
-function App() {
+const App: React.FC = () => {
+  const [isAuth, setIsAuth] = useState(false);
+
   return (
     <div className="">
       <ToastContainer />
@@ -27,19 +31,78 @@ function App() {
         <NavbarApp />
         <Routes>
           <Route path="/signup" element={<Signup />} />
-          <Route path="/signin" element={<Signin />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/showproduct" element={<ShowProduct />} />
-          <Route path="/addproduct" element={<Product />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/myorder" element={<Myorder />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/pending" element={<PendingOrder />} />
-          <Route path="/showuser" element={<Users />} />
+          <Route path="/signin" element={<Signin setIsAuth={setIsAuth} />} />
+          {/* <Route path="/" element={<Home />} /> */}
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute isAuth={isAuth} roles="user">
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/showproduct"
+            element={
+              <ProtectedRoute isAuth={isAuth} roles="admin">
+                <ShowProduct />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/addproduct"
+            element={
+              <ProtectedRoute isAuth={isAuth} roles="admin">
+                <Product />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <ProtectedRoute isAuth={isAuth} roles="user">
+                <Cart />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/myorder"
+            element={
+              <ProtectedRoute isAuth={isAuth} roles="user">
+                <Myorder />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute isAuth={isAuth} roles="admin">
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/pending"
+            element={
+              <ProtectedRoute isAuth={isAuth} roles="admin">
+                <PendingOrder />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/showuser"
+            element={
+              <ProtectedRoute isAuth={isAuth} roles="admin">
+                <Users />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>
   );
-}
+};
 
 export default App;
