@@ -126,15 +126,7 @@ const Product = () => {
               <label htmlFor="category_id" className="input_label">
                 Select Category
               </label>
-              {/* <select name="category_id" className="form_input_select">
-                <option value="" label="Select a category">
-                  Select a color{" "}
-                </option>
-                {category &&
-                  category.map((cat: any) => {
-                    return <option value={cat.id} label={cat.category_name} />;
-                  })}
-              </select> */}
+    
               <MySelect name="category_id" className="form_input_select">
                 <option value="">Select a job type</option>
                 {category &&

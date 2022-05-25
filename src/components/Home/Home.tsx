@@ -7,38 +7,57 @@ import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import Cart from "./Cart";
 import { AddToCart } from "../../redux/action/cart";
+import {
+  checkSearchProduct,
+  checkSearchProductByCategory,
+} from "../API/product";
+import { SHOW_ALL_PRODUCT_SUCCESS } from "../../redux/type";
+import { ShowCategory } from "../../redux/action/category";
 
 const Home = () => {
   const navigate = useNavigate();
   const dispatch: Dispatch<any> = useDispatch();
 
+  const [search, setSearch] = useState("");
+  const [catbysearch, setCatBySearch] = useState("");
+
   const product = useSelector((state: any) => state.product.products);
   const cart = useSelector((state: any) => state.cartReducer.cartItems);
-  console.log("cart", cart);
+
+  const category = useSelector((state: any) => state.AllCategory.category.rows);
+
+  console.log("category", category);
+  useEffect(() => {
+    dispatch(ShowCategory());
+  }, []);
 
   useEffect(() => {
     dispatch(ShowAllProduct());
   }, []);
 
-  const [isLoggedIn, setisLoggedIn] = useState<any | null>(null);
-  const accessToken: any = localStorage.getItem("token");
-  console.log(accessToken);
-  // const decodedToken: any = jwt_decode(accessToken);
+  const searchProduct = async () => {
+    let res: any = await checkSearchProduct(search);
+    dispatch({
+      type: SHOW_ALL_PRODUCT_SUCCESS,
+      payload: res.response_data,
+    });
+  };
 
-  // useEffect(() => {
-  //   if (accessToken == null) {
-  //     console.log("///////////////////");
-  //     navigate("/signin");
-  //     setisLoggedIn(false);
-  //   } else {
-  //     setisLoggedIn(true);
-  //     // if (decodedToken?.role == "admin") {
-  //     //   navigate("/showproduct");
-  //     // } else {
-  //     //   navigate("/");
-  //     // }
-  //   }
-  // }, []);
+  const searchProductByCategory = async () => {
+    let res: any = await checkSearchProductByCategory(catbysearch);
+    dispatch({
+      type: SHOW_ALL_PRODUCT_SUCCESS,
+      payload: res.response_data,
+    });
+  };
+
+  useEffect(() => {
+    searchProduct();
+  }, [search]);
+
+  useEffect(() => {
+    searchProductByCategory();
+  }, [catbysearch]);
 
   const addTocart = (productData: any): any => {
     console.log(productData);
@@ -52,6 +71,34 @@ const Home = () => {
   return (
     <>
       <section className="section-products">
+        <div className="searchText">
+          <div style={{ marginRight: "16px" }}>
+            <input
+              type="text"
+              placeholder="Search product"
+              value={search}
+              style={{ width: "200px", height: "40px" }}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+          <div>
+            <select
+              name="cars"
+              id="cars"
+              value={catbysearch}
+              onChange={(e) => setCatBySearch(e.target.value)}
+              style={{ width: "200px", height: "40px" }}
+            >
+              <option value="" label="Select a category">
+                Select a Category
+              </option>
+              {category &&
+                category.map((cat: any) => {
+                  return <option value={cat.id} label={cat.category_name} />;
+                })}
+            </select>
+          </div>
+        </div>
         <div
           className="cart"
           style={{

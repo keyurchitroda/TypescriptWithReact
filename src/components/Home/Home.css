@@ -160,3 +160,9 @@ a:hover {
     /* size: 10px; */
     font-size: 18px;
 }
+
+.searchText{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 50px;
+}
