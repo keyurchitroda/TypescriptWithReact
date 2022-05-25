@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, useField } from "formik";
 import * as Yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -74,9 +74,9 @@ const Product = () => {
   const onSubmit = async (values: any, onSubmitProps: any) => {
     if (submitAction != "secondary") {
       try {
-        console.log(values);
+        console.log("values-=-=-=", values);
         let data = {
-          category_id: 1,
+          category_id: values.category_id,
           product_name: values.product_name,
           product_description: values.product_description,
           available_qty: values.available_qty,
@@ -100,6 +100,19 @@ const Product = () => {
     }
   };
 
+  const MySelect = ({ label, ...props }: any) => {
+    const [field, meta] = useField(props);
+    return (
+      <div>
+        <label htmlFor={props.id || props.name}>{label}</label>
+        <select {...field} {...props} />
+        {meta.touched && meta.error ? (
+          <div className="error">{meta.error}</div>
+        ) : null}
+      </div>
+    );
+  };
+
   return (
     <div>
       <Formik
@@ -113,13 +126,7 @@ const Product = () => {
               <label htmlFor="category_id" className="input_label">
                 Select Category
               </label>
-              {/* <Field
-                name="category_id"
-                type="text"
-                placeholder="Enter Category Name"
-                className="form_input"
-              /> */}
-              <select name="category_id" className="form_input_select">
+              {/* <select name="category_id" className="form_input_select">
                 <option value="" label="Select a category">
                   Select a color{" "}
                 </option>
@@ -127,7 +134,14 @@ const Product = () => {
                   category.map((cat: any) => {
                     return <option value={cat.id} label={cat.category_name} />;
                   })}
-              </select>
+              </select> */}
+              <MySelect name="category_id" className="form_input_select">
+                <option value="">Select a job type</option>
+                {category &&
+                  category.map((cat: any) => {
+                    return <option value={cat.id}>{cat.category_name}</option>;
+                  })}
+              </MySelect>
             </div>
 
             <div className="input_group">
