@@ -20,6 +20,9 @@ import PendingOrder from "./components/Admin/Pendingorder/PendingOrder";
 import Users from "./components/Admin/Users/Users";
 import { useState } from "react";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Payment from "./components/Payment/Payment";
+import PaymentSuccess from "./components/Payment/PaymentStatus/PaymentSuccess";
+import PaymentCancel from "./components/Payment/PaymentStatus/PaymentCancel";
 
 const App: React.FC = () => {
   const [isAuth, setIsAuth] = useState(false);
@@ -97,6 +100,24 @@ const App: React.FC = () => {
               <ProtectedRoute isAuth={isAuth} roles="admin">
                 <Users />
               </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/success"
+            element={
+              // <ProtectedRoute isAuth={isAuth} roles="admin">
+              <PaymentSuccess />
+              // </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/cancel"
+            element={
+              // <ProtectedRoute isAuth={isAuth} roles="admin">
+              <PaymentCancel />
+              // </ProtectedRoute>
             }
           />
         </Routes>

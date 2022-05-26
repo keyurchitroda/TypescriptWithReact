@@ -50,7 +50,7 @@ const Cart = () => {
         type: REMOVE_TO_CART,
       });
       localStorage.removeItem("cartItems");
-      navigate("/myorder");
+      navigate("/payment");
       toast.success(res.message);
     }
   };

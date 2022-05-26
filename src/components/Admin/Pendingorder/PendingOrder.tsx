@@ -59,6 +59,7 @@ const PendingOrder = () => {
                           <th>Product qty</th>
                           <th>Product Price</th>
                           <th>Order status</th>
+                          <th>Payment status</th>
                         </tr>
                         {myorderParse &&
                           myorderParse.map((prod: any) => {
@@ -76,6 +77,7 @@ const PendingOrder = () => {
                                   <td>{prod.qty}</td>
                                   <td>{prod.price * prod.qty}</td>
                                   <td>{order.order_status}</td>
+                                  <td>{order.payment_status}</td>
                                 </tr>
                               </>
                             );
